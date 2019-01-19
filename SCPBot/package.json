@@ -1,0 +1,13 @@
+{
+  "name": "scpbot",
+  "version": "0.0.0",
+  "description": "SCPBot",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "yaml": "^1.2.1"
+  }
+}
