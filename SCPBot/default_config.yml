@@ -1,0 +1,11 @@
+﻿# The bot token from https://discordapp.com/developers/
+token: "bot-token-here"
+
+# Log more messages to the console, useful for debugging
+verbose: false
+
+# Prefix for discord commands
+prefix: "+"
+
+# The channel for the bot to post welcome messages in, empty to disable
+welcomeChannel: "channel-id-here"
