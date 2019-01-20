@@ -59,3 +59,11 @@ typings/
 
 # next.js build output
 .next
+
+SCPBot/config\.yml
+
+\.vs/
+
+SCPBot/obj/
+
+SCPBot/bin/
