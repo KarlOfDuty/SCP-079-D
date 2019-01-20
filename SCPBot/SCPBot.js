@@ -139,7 +139,7 @@ discordClient.on("message", (message) =>
             else
             {
                 const embed = {
-                    "description": `\n**That tale does not exist.**\n`,
+                    "description": `\n**That tale does not exist.**\n(You have to use the name of the article as it appears in the url)\n`,
                     "color": 0xff0000
                 };
                 message.channel.send({ embed });
