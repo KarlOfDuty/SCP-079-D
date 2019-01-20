@@ -13,7 +13,9 @@
 
 2. Extract release zip.
 
-3. Run bot using `node SCPBot.js` in the extracted folder.
+3. Rename `default_config.yml` to `config.yml`
+
+4. Run bot using `node SCPBot.js` in the extracted folder.
 
 ## Config:
 
