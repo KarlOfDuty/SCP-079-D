@@ -1,10 +1,21 @@
 {
-  "name": "scpbot",
-  "version": "0.0.0",
-  "description": "SCPBot",
-  "main": "app.js",
+  "name": "SCP-079-D",
+  "version": "0.1.0",
+  "description": "An SCP-linking Discord bot",
+  "main": "SCPBot.js",
+  "homepage": "https://www.karlofduty.com",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/KarlOfDuty/SCP-079-D/issues"
+  },
   "author": {
-    "name": ""
+    "name": "Karl Essinger",
+    "url": "http://www.karlofduty.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KarlOfDuty/SCP-079-D"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
