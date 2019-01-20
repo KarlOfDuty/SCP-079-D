@@ -7,7 +7,7 @@
 
 * Adds the scp and tale commands which link to a specific scp or tale.
 
-### Installation:
+## Installation:
 
 1. Install Node.
 
@@ -15,7 +15,7 @@
 
 3. Run bot using `node SCPBot.js` in the extracted folder.
 
-### Config:
+## Config:
 
 ```yaml
 # The bot token from https://discordapp.com/developers/
