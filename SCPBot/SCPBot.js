@@ -48,7 +48,10 @@ discordClient.on("guildMemberAdd", member =>
     }
 
     // Discord message
-    channel.send({ embed });
+    channel.send({ embed }).catch((err) =>
+    {
+        console.warn("Error occured sending welcome message: " + err);
+    });
 });
 
 const urlExists = require('url-exists');
@@ -69,13 +72,21 @@ discordClient.on("message", (message) =>
 
     if (command === "scp")
     {
+        if (verbose)
+        {
+            console.log("Parsing SCP command...");
+        }
+
         if (args.length < 1)
         {
             const embed = {
                 "description": `\n**Invalid arguments.**\n`,
                 "color": 0xff0000
             };
-            message.channel.send({ embed });
+            message.channel.send({ embed }).catch((err) =>
+            {
+                console.warn("Error occured sending scp response (invalid args): " + err);
+            });
             return;
         }
 
@@ -87,7 +98,10 @@ discordClient.on("message", (message) =>
                     "description": `\n**Foundation database entry found: [SCP-${args.join("-")}](http://www.scp-wiki.net/scp-${args.join("-")})**\n`,
                     "color": 0x00ff00
                 };
-                message.channel.send({ embed });
+                message.channel.send({ embed }).catch((err) =>
+                {
+                    console.warn("Error occured sending scp response: " + err);
+                });
             }
             else
             {
@@ -95,19 +109,29 @@ discordClient.on("message", (message) =>
                     "description": `\n**That SCP does not exist.**\n`,
                     "color": 0xff0000
                 };
-                message.channel.send({ embed });
+                message.channel.send({ embed }).catch((err) =>
+                {
+                    console.warn("Error occured sending scp response (does not exist): " + err);
+                });
             }
         });
     }
     else if (command === "tale")
     {
+        if (verbose)
+        {
+            console.log("Parsing tale command...");
+        }
         if (args.length < 1)
         {
             const embed = {
                 "description": `\n**Invalid arguments.**\n`,
                 "color": 0xff0000
             };
-            message.channel.send({ embed });
+            message.channel.send({ embed }).catch((err) =>
+            {
+                console.warn("Error occured sending tale response (invalid arguments): " + err);
+            });
             return;
         }
 
@@ -122,27 +146,41 @@ discordClient.on("message", (message) =>
 
                     function (error, response, body)
                     {
+                        if (error)
+                        {
+                            console.log("HTML parsing/loading error: " + error);
+                        }
+
                         var $ = cheerio.load(body);
                         var title = $("#page-title", "#main-content").text();
+
                         if (!title)
                         {
                             title = "[TITLE REDACTED]";
                         }
+
                         const embed = {
                             "description": `\n**Foundation incident report found: [${title}](http://www.scp-wiki.net/${args.join("-")})**\n`,
                             "color": 0x00ff00
                         };
-                        message.channel.send({ embed });
+
+                        message.channel.send({ embed }).catch((err) =>
+                        {
+                            console.warn("Error occured sending tale response: " + err);
+                        });
                     }
                 );
             }
             else
             {
                 const embed = {
-                    "description": `\n**That tale does not exist.**\n(You have to use the name of the article as it appears in the url)\n`,
+                    "description": `\n**That tale does not exist.**\n(You have to use the name of the article as it appears in the url, spaces are fine instead of dashes though.)\n`,
                     "color": 0xff0000
                 };
-                message.channel.send({ embed });
+                message.channel.send({ embed }).catch((err) =>
+                {
+                    console.warn("Error occured sending tale response (does not exist): " + err);
+                });
             }
         });
     }
