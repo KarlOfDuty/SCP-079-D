@@ -186,6 +186,28 @@ discordClient.on("message", (message) =>
     }
 });
 
+
+discordClient.on("error", (e) =>
+{
+    if (e.message === "getaddrinfo ENOTFOUND gateway.discord.gg gateway.discord.gg:443")
+    {
+        connectedToDiscord = false;
+        console.error("Discord connection broken, retrying...");
+    }
+    else
+    {
+        console.error(e.message);
+    }
+});
+
+discordClient.on("warn", (e) =>
+{
+    if (verbose)
+    {
+        console.warn(e.message);
+    }
+});
+
 // Connects to discord
 discordClient.login(token);
 
