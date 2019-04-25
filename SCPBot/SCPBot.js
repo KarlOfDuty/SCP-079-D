@@ -21,6 +21,12 @@ discordClient.on("ready", () =>
         {
             type: "LISTENING"
         });
+
+    var channel = discordClient.channels.get("549635507869581313");
+    channel.fetchMessages({ limit: 1 }).then(messages =>
+    {
+        scpCommand(messages.first(), "012");
+    }).catch(console.error);
 });
 
 // Create an event listener for new guild members
@@ -58,6 +64,82 @@ const urlExists = require('url-exists');
 const request = require("request");
 const cheerio = require("cheerio");
 
+function scpCommand(message, scp)
+{
+    urlExists("http://www.scp-wiki.net/scp-" + scp, function (err, exists)
+    {
+        if (exists)
+        {
+            request(
+                {
+                    uri: "http://www.scp-wiki.net/scp-" + scp
+                },
+
+                function (error, response, body)
+                {
+                    if (error)
+                    {
+                        console.log("HTML parsing/loading error: " + error);
+                    }
+
+                    var $ = cheerio.load(body);
+                    var imageURL = $("img", "#page-content").first().attr("src");
+
+                    if (!imageURL)
+                    {
+                        imageURL = "";
+                    }
+
+                    var objectClass = $(":contains(Object Class:)", "#page-content").first().text().replace("Object Class: ", "");
+
+                    if (!objectClass)
+                    {
+                        objectClass = "[UNKNOWN]";
+                    }
+
+                    const embed = {
+                        "description": `\n**[SCP-${scp}](http://www.scp-wiki.net/scp-${scp})**\n`,
+                        "color": 0x00ff00,
+                        "image": {
+                            "url": imageURL
+                        },
+                        "fields": [
+                            {
+                                "name": "Object class:",
+                                "value": objectClass
+                            },
+                            {
+                                "name": "Special Containment Procedures:",
+                                "value": "No physical interaction with SCP-106 is allowed at any time. All physical interaction must be approved by no less than a two-thirds vote from O5-Command. Any such interaction must be undertaken in AR-II maximum security sites, after a general non-essential staff evacuation. All staff (Research, Security, Class D, etc.) are to remain at least sixty meters away from the containment cell at all times, except in the event of breach events."
+                            },
+                            {
+                                "name": "Description:",
+                                "value": "SCP-106 appears to be an elderly humanoid, with a general appearance of advanced decomposition. This appearance may vary, but the “rotting” quality is observed in all forms. SCP-106 is not exceptionally agile, and will remain motionless for days at a time, waiting for prey. SCP-106 is also capable of scaling any vertical surface and can remain suspended upside down indefinitely. When attacking, SCP-106 will attempt to incapacitate prey by damaging major organs, muscle groups, or tendons, then pull disabled prey into its pocket dimension. SCP-106 appears to prefer human prey items in the 10-25 years of age bracket."
+                            }
+                        ]
+                    };
+
+                    message.channel.send({ embed }).catch((err) =>
+                    {
+                        console.warn("Error occured sending scp response: " + err);
+                    });
+                }
+            );
+        }
+        else
+        {
+            const embed = {
+                "description": `\n**That SCP does not exist.**\n`,
+                "color": 0xff0000
+            };
+            message.channel.send({ embed }).catch((err) =>
+            {
+                console.warn("Error occured sending scp response (does not exist): " + err);
+            });
+        }
+    });
+}
+
 discordClient.on("message", (message) =>
 {
     //Abort if message does not start with the prefix, if the sender is a bot, if the message is not from the right channel or if it does not contain any letters
@@ -90,31 +172,7 @@ discordClient.on("message", (message) =>
             return;
         }
 
-        urlExists("http://www.scp-wiki.net/scp-" + args.join("-"), function (err, exists)
-        {
-            if (exists)
-            {
-                const embed = {
-                    "description": `\n**Foundation database entry found: [SCP-${args.join("-")}](http://www.scp-wiki.net/scp-${args.join("-")})**\n`,
-                    "color": 0x00ff00
-                };
-                message.channel.send({ embed }).catch((err) =>
-                {
-                    console.warn("Error occured sending scp response: " + err);
-                });
-            }
-            else
-            {
-                const embed = {
-                    "description": `\n**That SCP does not exist.**\n`,
-                    "color": 0xff0000
-                };
-                message.channel.send({ embed }).catch((err) =>
-                {
-                    console.warn("Error occured sending scp response (does not exist): " + err);
-                });
-            }
-        });
+        scpCommand(message, args.join("-"));
     }
     else if (command === "tale")
     {
