@@ -1,4 +1,4 @@
-# SCP-079-D [![Release](https://img.shields.io/github/release/KarlofDuty/SCP-079-D.svg)](https://github.com/KarlOfDuty/SCP-079-D/releases) [![Downloads](https://img.shields.io/github/downloads/KarlOfDuty/SCP-079-D/total.svg)](https://github.com/KarlOfDuty/SCP-079-D/releases) [![Discord Server](https://img.shields.io/discord/430468637183442945.svg?label=discord)](https://discord.gg/C5qMvkj)  [![Patreon](https://img.shields.io/badge/patreon-donate-orange.svg)](https://patreon.com/karlofduty)
+# SCP-079-D [![Release](https://img.shields.io/github/release/KarlofDuty/SCP-079-D.svg)](https://github.com/KarlOfDuty/SCP-079-D/releases) [![Downloads](https://img.shields.io/github/downloads/KarlOfDuty/SCP-079-D/total.svg)](https://github.com/KarlOfDuty/SCP-079-D/releases) [![Discord Server](https://img.shields.io/discord/430468637183442945.svg?label=discord)](https://discord.gg/C5qMvkj)
 
 ### Has two functions: 
 
